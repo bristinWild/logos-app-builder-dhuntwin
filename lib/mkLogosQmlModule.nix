@@ -18,7 +18,10 @@
 }:
 
 let
-  rawConfig = parseMetadata.parseModuleConfig (builtins.readFile configFile);
+rawConfig = parseMetadata.parseModuleConfig {
+  json = builtins.readFile configFile;
+  platform = null;
+};
   config = common.recursiveMerge [ rawConfig configOverrides ];
 
   _ = assert config.type == "ui_qml" || builtins.throw
